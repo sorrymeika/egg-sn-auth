@@ -3,9 +3,9 @@
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
-  async index() {
-    this.ctx.body = 'hi, ' + this.app.plugins.snauth.name;
-  }
+    async index() {
+        this.ctx.body = 'hi, ' + this.app.plugins.snauth.name;
+    }
 }
 
 module.exports = HomeController;

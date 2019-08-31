@@ -1,5 +1,4 @@
 module.exports = options => {
-    console.log(options);
     const { excludes, permissions } = options;
     return async function auth(ctx, next) {
         const tk = ctx.cookies.get('tk', {
@@ -9,12 +8,13 @@ module.exports = options => {
             signed: false
         });
         const url = ctx.url;
+
         if (excludes.some((exclude) => (typeof exclude === 'string' ? url.indexOf(exclude) !== -1 : exclude.test(url)))) {
             await next();
             return;
         }
 
-        const res = await ctx.authRPC.getRole(aid, tk);
+        const res = await ctx.authRPC.invoke('auth.getRole', [aid, tk]);
         if (res && res.success) {
             const permission = permissions.find((permission) => (typeof permission.url === 'string' ? url.indexOf(permission.url) !== -1 : permission.url.test(url)));
             if (permission) {
@@ -39,7 +39,7 @@ module.exports = options => {
                     }
 
                     // 查询是否有组权限
-                    const hasPermissionRes = await ctx.authRPC.hasPermission(aid, permission.permissionIds);
+                    const hasPermissionRes = await ctx.authRPC.invoke('auth.hasPermission', [aid, permission.permissionIds]);
                     if (hasPermissionRes && hasPermissionRes.success) {
                         await next();
                         return;
