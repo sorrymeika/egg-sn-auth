@@ -1,6 +1,6 @@
 'use strict';
 
-exports.snauth = {
+exports.auth = {
     registry: {
         port: 3006
     }

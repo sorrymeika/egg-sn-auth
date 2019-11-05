@@ -1,5 +1,5 @@
 module.exports = app => {
-    app.config.coreMiddleware.unshift('snauth');
+    app.config.coreMiddleware.unshift('auth');
 
     // app.addSingleton('mysql', createMysql);
 };

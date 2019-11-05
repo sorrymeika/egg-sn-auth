@@ -1,4 +1,4 @@
-require('../../dep');
+require('../../ln-deps');
 
 const { registerConsumer } = require('sonorpc');
 
@@ -8,13 +8,13 @@ module.exports = {
     get authRPC() {
         // this 就是 ctx 对象，在其中可以调用 ctx 上的其他方法，或访问属性
         if (!this[AUTH_RPC]) {
-            console.log('init auth rpc consumer:', this.app.config.snauth.registry);
+            console.log('init auth rpc consumer:', this.app.config.auth.registry);
             this[AUTH_RPC] = registerConsumer({
                 // 服务提供者名称
                 providerName: 'auth',
                 registry: {
                     port: 3006,
-                    ...this.app.config.snauth.registry
+                    ...this.app.config.auth.registry
                 }
             });
         }

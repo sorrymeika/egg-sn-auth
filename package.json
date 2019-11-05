@@ -1,9 +1,9 @@
 {
-  "name": "egg-snauth",
+  "name": "egg-sn-auth",
   "version": "0.0.1",
   "description": "鉴权插件",
   "eggPlugin": {
-    "name": "snauth"
+    "name": "eggAuth"
   },
   "dependencies": {},
   "devDependencies": {
@@ -32,12 +32,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sorrymeika/egg-snauth.git"
+    "url": "git+https://github.com/sorrymeika/egg-sn-auth.git"
   },
   "bugs": {
-    "url": "https://github.com/sorrymeika/egg-snauth/issues"
+    "url": "https://github.com/sorrymeika/egg-sn-auth/issues"
   },
-  "homepage": "https://github.com/sorrymeika/egg-snauth#readme",
+  "homepage": "https://github.com/sorrymeika/egg-sn-auth#readme",
   "author": "sunlu",
   "license": "MIT"
 }
