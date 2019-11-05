@@ -1,23 +1,27 @@
 module.exports = options => {
-    const { excludes, permissions } = options;
+    const { permissions } = options;
     return async function auth(ctx, next) {
+        const url = ctx.url;
+        const permission = permissions.find((permission) => (typeof permission.url === 'string' ? url.indexOf(permission.url) !== -1 : permission.url.test(url)));
+
+        if (!permission) {
+            await next();
+            return;
+        }
+
         const tk = ctx.cookies.get('tk', {
             signed: false
         });
         const aid = ctx.cookies.get('aid', {
             signed: false
         });
-        const url = ctx.url;
-
-        if (excludes.some((exclude) => (typeof exclude === 'string' ? url.indexOf(exclude) !== -1 : exclude.test(url)))) {
-            await next();
-            return;
-        }
 
         const res = await ctx.authRPC.invoke('auth.getRole', [aid, tk]);
         if (res && res.success) {
-            const permission = permissions.find((permission) => (typeof permission.url === 'string' ? url.indexOf(permission.url) !== -1 : permission.url.test(url)));
             if (permission) {
+                ctx.accountId = Number(aid);
+                ctx.accountRole = Number(res.role);
+
                 if (
                     // 超级管理员
                     (res.role === 1 && permission.apps.indexOf(1) !== -1)
