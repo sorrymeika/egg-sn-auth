@@ -2,7 +2,13 @@ module.exports = options => {
     const { permissions } = options;
     return async function auth(ctx, next) {
         const url = ctx.url;
-        const permission = permissions.find((permission) => (typeof permission.url === 'string' ? url.indexOf(permission.url) !== -1 : permission.url.test(url)));
+        const permission = permissions.find((permission) => (
+            typeof permission.url === 'string'
+                ? url == permission.url
+                : Array.isArray(permission.url)
+                    ? permission.url.includes(url)
+                    : permission.url.test(url))
+        );
 
         if (!permission) {
             await next();

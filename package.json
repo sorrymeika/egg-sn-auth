@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "鉴权插件",
   "eggPlugin": {
-    "name": "eggAuth"
+    "name": "auth"
   },
   "dependencies": {},
   "devDependencies": {
