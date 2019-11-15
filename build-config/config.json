@@ -1,8 +1,6 @@
 {
     "buildCommands": [
-        "mkdir node_modules",
-        "npm install",
-        "ln -s /data/common/sonorpc ./node_modules/sonorpc"
+        "npm install"
     ],
     "autoConfig": []
 }
