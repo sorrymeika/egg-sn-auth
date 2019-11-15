@@ -1,5 +1,3 @@
-require('../../ln-deps');
-
 const { registerConsumer } = require('sonorpc');
 
 const AUTH_RPC = Symbol('Application#authRPC');
