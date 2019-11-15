@@ -22,7 +22,7 @@ module.exports = options => {
             signed: false
         });
 
-        const res = await ctx.authRPC.invoke('auth.getRole', [aid, tk]);
+        const res = await ctx.app.authRPC.invoke('auth.getRole', [aid, tk]);
         if (res && res.success) {
             if (permission) {
                 ctx.accountId = Number(aid);
