@@ -1,5 +1,10 @@
 module.exports = app => {
-    app.config.coreMiddleware.unshift('auth');
+    const index = app.config.coreMiddleware.indexOf('cors');
+    if (index != -1) {
+        app.config.coreMiddleware.splice(index + 1, 0, 'auth');
+    } else {
+        app.config.coreMiddleware.unshift('auth');
+    }
 
     // app.addSingleton('mysql', createMysql);
 };
