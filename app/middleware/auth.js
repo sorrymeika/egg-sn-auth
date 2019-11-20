@@ -26,7 +26,11 @@ module.exports = options => {
         if (res && res.success) {
             if (permission) {
                 ctx.accountId = Number(aid);
-                ctx.accountRole = Number(res.role);
+                ctx.account = {
+                    id: ctx.accountId,
+                    role: Number(res.role),
+                    name: res.account
+                };
 
                 if (
                     // 超级管理员
