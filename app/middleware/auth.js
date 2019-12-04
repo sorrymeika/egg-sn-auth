@@ -1,3 +1,5 @@
+// app类型: { 1: '平台', 2: '商户', 3: 'C端' }
+
 module.exports = options => {
     const { permissions } = options;
     return async function auth(ctx, next) {

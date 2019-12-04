@@ -6,7 +6,7 @@
     "name": "auth"
   },
   "dependencies": {
-    "sonorpc": "0.0.5"
+    "sonorpc": "0.0.6"
   },
   "devDependencies": {
     "autod": "^3.0.1",
