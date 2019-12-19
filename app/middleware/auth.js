@@ -17,23 +17,9 @@ module.exports = options => {
             return;
         }
 
-        const tk = ctx.cookies.get('tk', {
-            signed: false
-        });
-        const aid = ctx.cookies.get('aid', {
-            signed: false
-        });
-
-        const res = await ctx.app.authRPC.invoke('auth.getRole', [aid, tk]);
-        if (res && res.success) {
+        const res = await ctx.getAuth();
+        if (res) {
             if (permission) {
-                ctx.accountId = Number(aid);
-                ctx.account = {
-                    id: ctx.accountId,
-                    role: Number(res.role),
-                    name: res.account
-                };
-
                 if (
                     // 超级管理员
                     (res.role === 1 && permission.apps.indexOf(1) !== -1)
@@ -55,7 +41,7 @@ module.exports = options => {
                     }
 
                     // 查询是否有组权限
-                    const hasPermissionRes = await ctx.authRPC.invoke('auth.hasPermission', [aid, permission.permissionIds]);
+                    const hasPermissionRes = await ctx.authRPC.invoke('auth.hasPermission', [res.id, permission.permissionIds]);
                     if (hasPermissionRes && hasPermissionRes.success) {
                         await next();
                         return;
